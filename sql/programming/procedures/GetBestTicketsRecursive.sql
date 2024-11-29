@@ -2,6 +2,32 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+-- ******************************************************************************************************************
+-- ** Title: GetBestTicketsRecursive
+-- ** Description: A recursive stored procedure to find the best combination of tickets for a given target sum
+-- **
+-- ** Parameters: @TargetSum INT - The target sum to achieve
+-- **             @CurrentSum INT - The current sum in the recursion
+-- **             @SelectedIDs VARCHAR(MAX) - The selected ticket IDs in the recursion
+-- **             @LastID INT - The last ticket ID processed
+-- **             @Pledgee VARCHAR(50) - The pledgee to filter tickets by
+-- **             @PriorityTicketType VARCHAR(50) - The priority ticket type to include
+-- **             @IncludeAllTypes BIT - Flag to include all ticket types
+-- **             @BestSum INT OUTPUT - The best sum achieved
+-- **             @BestCombination VARCHAR(MAX) OUTPUT - The best combination of ticket IDs
+-- **
+-- ** Returns: None
+-- **
+-- ** Author : Douglas Tolley
+-- ** Date   : 2024-11-28
+-- **
+-- ** Change History
+-- ** --------------
+-- ** updated by        update date
+-- ** ----------        ----------
+-- ** detolle           2024-11-28
+-- ******************************************************************************************************************
+
 CREATE OR ALTER PROCEDURE [dbo].[GetBestTicketsRecursive]
     @TargetSum INT,
     @CurrentSum INT = 0,

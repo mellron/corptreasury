@@ -63,6 +63,14 @@ BEGIN
         BestSum = @BestSum,
         BestCombination = @BestCombination;
 
+
+    -- Print out 'Ticket pledge details'
+    PRINT 'Ticket pledge details';
+
+    SELECT *
+    FROM Tickets INNER JOIN dbo.SplitString(@BestCombination, ',') AS Split ON Tickets.Ticket = Split.Value
+
+
     -- Optionally, return the debug log
     SELECT * FROM #DebugLog ORDER BY LogID;
 END
