@@ -3,8 +3,21 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 '*******************************************************************************************************'
-' Name: GetBestTicketsForTargetSum.sql
-' Description : Purpose: Find the best combination of tickets that sum up to the target sum
+/*
+    Stored Procedure: GetBestTicketsForTargetSum
+    Description: Finds the best combination of tickets that meets or exceeds the target sum.
+
+    Parameters:
+        @TargetSum INT - The target sum to meet or exceed.
+        @Pledgee VARCHAR(50) = NULL - (Optional) The pledgee whose tickets to prioritize.
+        @PriorityTicketType VARCHAR(50) = 'AFS' - The ticket type to prioritize.
+        @Debug BIT = 0 - Set to 1 to enable debug output.
+        @PrioritizePledgeeSum INT = 0 - Controls ticket selection priority based on the specified pledgee.
+            Values:
+                0 - Minimize total amount (default behavior).
+                1 - Prioritize combinations with higher sums of the specified pledgee's tickets.
+                2 - Use only the specified pledgee's tickets.
+*/
 '*******************************************************************************************************'
 
 CREATE OR ALTER PROCEDURE [dbo].[GetBestTicketsForTargetSum]
