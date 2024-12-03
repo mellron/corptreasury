@@ -2,7 +2,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-'*******************************************************************************************************'
+--*******************************************************************************************************
 /*
     Stored Procedure: GetBestTicketsForTargetSum
     Description: Finds the best combination of tickets that meets or exceeds the target sum.
@@ -17,8 +17,15 @@ GO
                 0 - Minimize total amount (default behavior).
                 1 - Prioritize combinations with higher sums of the specified pledgee's tickets.
                 2 - Use only the specified pledgee's tickets.
+
+    Example execution:
+                         EXEC GetBestTicketsForTargetSum
+                         @TargetSum = 60,
+                         @Pledgee = 'John',
+                         @PrioritizePledgeeSum = 0
 */
-'*******************************************************************************************************'
+
+--*******************************************************************************************************
 
 CREATE OR ALTER PROCEDURE [dbo].[GetBestTicketsForTargetSum]
       @TargetSum INT,
