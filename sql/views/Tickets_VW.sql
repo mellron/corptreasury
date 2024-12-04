@@ -1,5 +1,6 @@
 CREATE OR ALTER VIEW [dbo].[Tickets_VW] AS
 SELECT 
+    ID,
     Ticket,
     TicketType AS Intention,
     Amount AS Original_Amount,

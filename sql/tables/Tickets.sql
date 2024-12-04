@@ -9,9 +9,10 @@ GO
 CREATE TABLE [dbo].[Tickets](
     [ID] [int] IDENTITY(1,1) NOT NULL,
     [Ticket] [varchar](50) NOT NULL,
-    [Amount] [int] NULL,
-    [Pledgee] [varchar](50) NULL,
-    [TicketType] [varchar](50) NULL
+    [Pledged] [int] DEFAULT 0 NOT NULL, -- This is the amount that has been pledged
+    [Amount] [int] NULL, -- This is the Original Pledged amout
+    [Pledgee] [varchar](50) NULL, -- This is who it is pledged too
+    [TicketType] [varchar](50) NULL -- AFS OR HTM
 ) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[Tickets] ADD PRIMARY KEY CLUSTERED 
@@ -26,3 +27,20 @@ ALTER TABLE [dbo].[Tickets] ADD  CONSTRAINT [Tickets_UniqueTicket] UNIQUE NONCLU
     [Ticket] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+
+
+
+INSERT INTO [dbo].[Tickets] (Ticket,Pledged, Amount, Pledgee, TicketType)
+VALUES
+    ('287000130',0, 50, 'RSWP1', 'AFS'),
+    ('287000245',0, 50, 'RSWP1', 'AFS'),
+    ('287000254',25, 50, 'ARIMU', 'AFS'),
+    ('287000255',0, 20, 'ARIMU', 'AFS'),
+    ('287000258',0, 20, 'ARIMU', 'AFS'),
+    ('287000259',5, 20, 'ILVWH', 'AFS'),
+    ('287000260',5, 10, 'ILVWH', 'HTM');
+
+-- Update unspecified columns (Pledged default to 0)
+UPDATE [dbo].[Tickets]
+SET Pledged = 0
+WHERE Pledged IS NULL;
