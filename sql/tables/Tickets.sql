@@ -38,7 +38,10 @@ VALUES
     ('287000255',0, 20, 'ARIMU', 'AFS'),
     ('287000258',0, 20, 'ARIMU', 'AFS'),
     ('287000259',5, 20, 'ILVWH', 'AFS'),
-    ('287000260',5, 10, 'ILVWH', 'HTM');
+    ('287000260',5, 10, 'ILVWH', 'HTM'),
+    ('287000261',0, 30, 'RSWP1', 'HTM'),
+    ('287000262',0, 60, 'RSWP1', 'HTM')
+
 
 -- Update unspecified columns (Pledged default to 0)
 UPDATE [dbo].[Tickets]
