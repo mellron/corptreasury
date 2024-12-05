@@ -10,11 +10,7 @@ RETURN
         Original_Amount AS Amount,
         Pledged,
         Pledgee AS TicketPledgee,
-        -- Calculate Available_Amount based on @Pledgee
-        CASE 
-            WHEN @Pledgee = Pledgee THEN Original_Amount
-            ELSE Original_Amount - Pledged
-        END AS Available_Amount,
+        Available AS Available_Amount,
         -- Calculate Available_Percent based on @Pledgee
         CASE 
             WHEN @Pledgee = Pledgee THEN 100.00
