@@ -49,9 +49,7 @@ flowchart TD
     CheckTopLevelEnd -- No --> ReturnBranch
     ReturnBranch --> End
 
-    style Start fill:#FFFFFF,stroke:#FFFFFF,stroke-width:2px
 
-    style End fill:#FFFFFF,stroke:#333,stroke-width:2px
 ```
 
 ---
