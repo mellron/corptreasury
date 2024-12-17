@@ -25,6 +25,7 @@ The `SEL_AllBestPickResults` stored procedure generates all possible combination
 ---
 
 ## Logic Flow
+```mermaid
 flowchart TD
     Start["Start Procedure SEL_AllBestPickResults"] --> CheckTopLevel{Is it the top-level call?}
     CheckTopLevel -->|Yes| CreateTempTable["Create #AllSolutions temp table"]
