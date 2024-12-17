@@ -27,39 +27,33 @@ The `SEL_AllBestPickResults` stored procedure generates all possible combination
 ## Logic Flow
 ```mermaid
 flowchart TD
-    Start["Start Procedure SEL_AllBestPickResults"] --> CheckTopLevel{Is it the top-level call?}
-    CheckTopLevel -->|Yes| CreateTempTable["Create #AllSolutions temp table"]
-    CreateTempTable --> CheckBaseCase{Is CurrentSum >= TargetSum?}
-    CheckTopLevel -->|No| CheckBaseCase
-
-    CheckBaseCase -->|Yes| CalculateMetrics["Calculate Overage and Percentages"]
+    Start["Start Procedure SEL_AllBestPickResults"] --> CheckTopLevel{"Is it the top-level call?"}
+    CheckTopLevel -- Yes --> CreateTempTable["Create #AllSolutions temp table"]
+    CreateTempTable --> CheckBaseCase{"Is CurrentSum >= TargetSum?"}
+    CheckTopLevel -- No --> CheckBaseCase
+    CheckBaseCase -- Yes --> CalculateMetrics["Calculate Overage and Percentages"]
     CalculateMetrics --> InsertSolution["Insert results into #AllSolutions"]
     InsertSolution --> ReturnBranch["Return current recursion branch"]
-
-    CheckBaseCase -->|No| OpenCursor["Open cursor to fetch available tickets"]
+    CheckBaseCase -- No --> OpenCursor["Open cursor to fetch available tickets"]
     OpenCursor --> FetchNextTicket["Fetch next ticket"]
-
-    FetchNextTicket -->|Success| UpdateVariables["Update running totals and parameters"]
-    UpdateVariables --> CheckSmallestTicket{Is TicketID < SmallestTicketNumber?}
-    CheckSmallestTicket -->|Yes| UpdateSmallest["Update SmallestTicketNumber"]
+    FetchNextTicket -- Success --> UpdateVariables["Update running totals and parameters"]
+    UpdateVariables --> CheckSmallestTicket{"Is TicketID &lt; SmallestTicketNumber?"}
+    CheckSmallestTicket -- Yes --> UpdateSmallest["Update SmallestTicketNumber"]
     UpdateSmallest --> RecursiveCall["Recursive call to SEL_AllBestPickResults"]
-    CheckSmallestTicket -->|No| RecursiveCall
+    CheckSmallestTicket -- No --> RecursiveCall
     RecursiveCall --> FetchNextTicket
-
-    FetchNextTicket -->|No More Tickets| CloseCursor["Close and deallocate cursor"]
-    CloseCursor --> CheckTopLevelEnd{Is this the top-level call?}
-
-    CheckTopLevelEnd -->|Yes| SelectSolutions["Select all solutions from #AllSolutions"]
+    FetchNextTicket -- No More Tickets --> CloseCursor["Close and deallocate cursor"]
+    CloseCursor --> CheckTopLevelEnd{"Is this the top-level call?"}
+    CheckTopLevelEnd -- Yes --> SelectSolutions["Select all solutions from #AllSolutions"]
     SelectSolutions --> End["End Procedure"]
-    CheckTopLevelEnd -->|No| ReturnBranch
-
+    CheckTopLevelEnd -- No --> ReturnBranch
     ReturnBranch --> End
 
-    style Start fill:#f9f,stroke:#333,stroke-width:2px
-    style End fill:#bbf,stroke:#333,stroke-width:2px
-    style InsertSolution fill:#bff,stroke:#333,stroke-width:2px
-    style CheckBaseCase fill:#fc8,stroke:#333,stroke-width:2px
-    style RecursiveCall fill:#aff,stroke:#333,stroke-width:2px
+    style Start fill:#FFFFFF,stroke:#FFFFFF,stroke-width:2px
+    style CheckBaseCase fill:#FFFFFF,stroke:#333,stroke-width:2px
+    style InsertSolution fill:#FFFFFF,stroke:#333,stroke-width:2px
+    style RecursiveCall fill:#FFFFFF,stroke:#333,stroke-width:2px
+    style End fill:#FFFFFF,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -83,7 +77,7 @@ flowchart TD
 ## Usage Example
 ```sql
 EXEC [dbo].[SEL_AllBestPickResults]
-    @TargetSum = 5000,
+    @TargetSum = 50,
     @Pledgee = 'JohnDoe',
     @PriorityTicketType = 'AFS',
     @IncludeAllIntentions = 1,
